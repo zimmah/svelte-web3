@@ -1,16 +1,21 @@
 <script>
-	let currentAccount;
+	import {ethers} from 'ethers'
+	import apikeys from '../api-keys.json'
+
+	const provider = ethers.getDefaultProvider(Number(window.ethereum?.chainId) || 0x1, apikeys);
+
+	let currentAccount
 	window.ethereum
 		?.request({ method: "eth_accounts"} )
 		.then(handleAccountsChanged)
-		.catch(err => console.error(err));
+		.catch(err => console.error(err))
 
-	window.ethereum?.on("accountsChanged", handleAccountsChanged);
-	window.ethereum?.on("chainChanged", () => window.location.reload());
+	window.ethereum?.on("accountsChanged", handleAccountsChanged)
+	window.ethereum?.on("chainChanged", () => window.location.reload())
 		
 	function handleAccountsChanged(accounts) {
 		if (accounts.length === 0) {
-			console.log("Please connect to MetaMask");
+			console.log("Please connect to MetaMask")
 		} else if (accounts[0] !== currentAccount) {
 			currentAccount = accounts[0];
 		}
@@ -24,11 +29,11 @@
 			if (err.code === 4001) {
 				// EIP-1193 userRejectedRequest error
 				// If this happens, the user rejected the connection request.
-				console.log("Please connect to MetaMask.");
+				console.log("Please connect to MetaMask.")
 			} else {
-				console.error(err);
+				console.error(err)
 			}
-		});
+		})
 	}
 </script>
 
