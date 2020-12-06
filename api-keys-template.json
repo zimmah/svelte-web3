@@ -1,0 +1,6 @@
+{
+    "alchemy": "api-key",
+    "infura": "api-key",
+    "pocket": "api-key",
+    "etherscan": "api-key"
+}
