@@ -2,12 +2,22 @@
     import {ethers} from 'ethers'
     import apikeys from '../../api-keys-template.json'
 
-    const provider = ethers.getDefaultProvider(Number(window.ethereum?.chainId) || 0x1, apikeys);
+    const networks = {
+        1: 'Main Ethereum Network',
+        3: 'Ropsten Test Network',
+        4: 'Rinkeby Test Network',
+        5: 'Görli Test Network',
+        42: 'Kovan Test Network',
+    }
+    const provider = ethers.getDefaultProvider(Number(window.ethereum?.chainId) || 0x1, apikeys)
 
     let currentAccount
+    let connectedNetwork
+
     window.ethereum
     .on("accountsChanged", handleAccountsChanged)
     .on("chainChanged", () => window.location.reload())
+    .on("disconnect", handleAccountsChanged)
     .request({ method: "eth_accounts"} )
     .then(handleAccountsChanged)
     .catch(err => console.error(err))
@@ -15,8 +25,10 @@
     function handleAccountsChanged(accounts) {
         if (accounts.length === 0) {
             console.log("Please connect to MetaMask")
+            currentAccount = undefined
         } else if (accounts[0] !== currentAccount) {
-            currentAccount = accounts[0];
+            currentAccount = accounts[0]
+            connectedNetwork = networks[Number(window.ethereum.chainId)]
         }
     }
 
@@ -39,7 +51,7 @@
 <main>
     <h1>Hello web3!</h1>
     {#if currentAccount}
-        <p>Connected to {currentAccount}</p>
+        <p>Connected to {currentAccount} at the {connectedNetwork}</p>
     {:else}
         <button on:click={connect}>Connect</button>
     {/if}
