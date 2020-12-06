@@ -1,6 +1,6 @@
 <script>
     import {ethers} from 'ethers'
-    import apikeys from '../../api-keys.json'
+    import apikeys from '../../api-keys-template.json'
 
     const provider = ethers.getDefaultProvider(Number(window.ethereum?.chainId) || 0x1, apikeys);
 
