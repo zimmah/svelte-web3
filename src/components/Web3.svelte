@@ -10,6 +10,7 @@
         42: 'Kovan Test Network',
     }
     const provider = ethers.getDefaultProvider(Number(window.ethereum.chainId) || 0x1, apikeys)
+    const signer = (new ethers.providers.Web3Provider(window.ethereum)).getSigner()
 
     let currentAccount
     let connectedNetwork
