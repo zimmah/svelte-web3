@@ -9,7 +9,7 @@
         5: 'Görli Test Network',
         42: 'Kovan Test Network',
     }
-    const provider = ethers.getDefaultProvider(Number(window.ethereum?.chainId) || 0x1, apikeys)
+    const provider = ethers.getDefaultProvider(Number(window.ethereum.chainId) || 0x1, apikeys)
 
     let currentAccount
     let connectedNetwork
