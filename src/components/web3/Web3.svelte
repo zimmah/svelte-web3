@@ -1,6 +1,6 @@
-<script>
-    import {ethers} from 'ethers'
-    import apikeys from '../../api-keys-template.json'
+<script lang="ts">
+    import {ethers, Signer} from 'ethers'
+    import WrongNetwork from './WrongNetwork.svelte'
 
     const networks = {
         1: 'Main Ethereum Network',
@@ -9,10 +9,11 @@
         5: 'Görli Test Network',
         42: 'Kovan Test Network',
     }
-    const provider = ethers.getDefaultProvider(Number(window.ethereum?.chainId) || 0x1, apikeys)
 
-    let currentAccount
-    let connectedNetwork
+    const signer:Signer = (new ethers.providers.Web3Provider(window.ethereum)).getSigner()
+
+    let currentAccount:string
+    let connectedNetwork:string
 
     window.ethereum
     .on("accountsChanged", handleAccountsChanged)
@@ -22,7 +23,7 @@
     .then(handleAccountsChanged)
     .catch(err => console.error(err))
         
-    function handleAccountsChanged(accounts) {
+    function handleAccountsChanged(accounts:Array<string>):void {
         if (accounts.length === 0) {
             console.log("Please connect to MetaMask")
             currentAccount = undefined
@@ -32,7 +33,7 @@
         }
     }
 
-    function connect() {
+    function connect():void {
         window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then(handleAccountsChanged)
@@ -49,11 +50,15 @@
 </script>
 
 <main>
-    <h1>Hello web3!</h1>
-    {#if currentAccount}
-        <p>Connected to {currentAccount} at the {connectedNetwork}</p>
+    {#if Number(window.ethereum.chainId) > 1}
+        <h1>Hello web3!</h1>
+        {#if currentAccount}
+            <p>Connected to {currentAccount} at the {connectedNetwork}</p>
+        {:else}
+            <button on:click={connect}>Connect</button>
+        {/if}
     {:else}
-        <button on:click={connect}>Connect</button>
+        <WrongNetwork/>
     {/if}
 </main>
 

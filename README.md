@@ -1,9 +1,17 @@
-# skeleton web3 application built on svelte
+# Template web3 svelte application
 
-below is the default readme of svelte
+Written using ES10 because I don't hate myself and neither should you.
 
-written using ES10 because you should be up to date.
+Get your API keys here:
+* [alchemy](https://dashboard.alchemyapi.io/signup)  
+* [infura](https://infura.io/register)   
+* [pocket](https://pokt.network/pocket-gateway-ethereum-mainnet/)    
+* [etherscan](https://etherscan.io/apis)    
 
+---
+Default readme below:
+
+---
 
 *Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
 

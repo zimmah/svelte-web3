@@ -1,6 +1,6 @@
-<script>
-    import Web3 from './components/Web3.svelte'
-    import NoWeb3 from './components/NoWeb3.svelte'
+<script lang="ts">
+    import Web3 from './components/web3/Web3.svelte'
+    import NoWeb3 from './components/web3/NoWeb3.svelte'
 </script>
 
 <main>
