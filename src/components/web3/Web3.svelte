@@ -1,5 +1,6 @@
 <script lang="ts">
     import {ethers, Signer} from 'ethers'
+import SendWeth from './interactions/sendWETH.svelte'
     import WrongNetwork from './WrongNetwork.svelte'
 
     const networks = {
@@ -54,6 +55,7 @@
         <h1>Hello web3!</h1>
         {#if currentAccount}
             <p>Connected to {currentAccount} at the {connectedNetwork}</p>
+            <SendWeth {signer} />
         {:else}
             <button on:click={connect}>Connect</button>
         {/if}

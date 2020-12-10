@@ -51,6 +51,7 @@
                 <p>Transaction rejected by user.</p>
             {:else}
                 <p>Something went wrong: {error.message}</p>
+                <p>Do you have WETH on this network?</p>
             {/if}
             <button on:click={reset}>Try again</button>
         {/await}
